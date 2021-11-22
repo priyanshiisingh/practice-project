@@ -7,12 +7,20 @@ import Order from "./components/Order";
 import Myorders from "./components/MyOrders";
 import AdminPage from "./components/AdminPage";
 import Navbar from "./layouts/Navbar";
-import { Router, Routes } from "react-router-dom";
+import PrivateRoute from "./routing/PrivateRoute";
+import { Route, Routes } from "react-router-dom";
 
 const App = () => {
   return (
     <div className="App">
       <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<PrivateRoute child={<Login />} />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/products" element={<Product />} />
+        <Route path="/admin" element={<AdminPage />} />
+      </Routes>
     </div>
   );
 };
