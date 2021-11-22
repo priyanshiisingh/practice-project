@@ -6,18 +6,13 @@ import Product from "./components/Product";
 import Order from "./components/Order";
 import Myorders from "./components/MyOrders";
 import AdminPage from "./components/AdminPage";
+import Navbar from "./layouts/Navbar";
+import { Router, Routes } from "react-router-dom";
 
 const App = () => {
   return (
     <div className="App">
-      <Home />
-      <Login />
-      <SignUp />
-      <Products />
-      <Product />
-      <Order />
-      <Myorders />
-      <AdminPage />
+      <Navbar />
     </div>
   );
 };
