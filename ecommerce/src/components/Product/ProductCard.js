@@ -1,50 +1,76 @@
 import {
   Box,
-  Container,
+  Center,
+  useColorModeValue,
   Heading,
-  SimpleGrid,
-  Icon,
   Text,
   Stack,
-  HStack,
-  VStack,
+  Image,
 } from "@chakra-ui/react";
-import { CheckIcon } from "@chakra-ui/icons";
 
-// Replace test data with your own
-const features = Array.apply(null, Array(8)).map(function (x, i) {
-  return {
-    id: i,
-    title: "Lorem ipsum dolor sit amet",
-    text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.",
-  };
-});
-
-export default function Details() {
+const ProductCard = ({ data }) => {
+  const { imageUrl } = data;
+  console.log(data);
   return (
-    <Box p={4}>
-      <Stack spacing={4} as={Container} maxW={"3xl"} textAlign={"center"}>
-        <Heading fontSize={"3xl"}>Product Details</Heading>
-        <Text color={"gray.600"} fontSize={"xl"}>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+    <Box
+      role={"group"}
+      p={6}
+      m={6}
+      maxW={"350px"}
+      w={"full"}
+      bg={useColorModeValue("white", "gray.800")}
+      boxShadow={"2xl"}
+      rounded={"lg"}
+      pos={"relative"}
+      zIndex={1}>
+      <Box
+        rounded={"lg"}
+        mt={-12}
+        pos={"relative"}
+        height={"230px"}
+        _after={{
+          transition: "all .3s ease",
+          content: '""',
+          w: "full",
+          h: "full",
+          pos: "absolute",
+          top: 5,
+          left: 0,
+          backgroundImage: `url(${imageUrl})`,
+          filter: "blur(15px)",
+          zIndex: -1,
+        }}
+        _groupHover={{
+          _after: {
+            filter: "blur(20px)",
+          },
+        }}>
+        <Image
+          rounded={"lg"}
+          height={230}
+          width={282}
+          objectFit={"cover"}
+          src={imageUrl}
+        />
+      </Box>
+      <Stack pt={10} align={"center"}>
+        <Text color={"gray.500"} fontSize={"sm"} textTransform={"uppercase"}>
+          Brand
         </Text>
+        <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
+          Nice Chair, pink
+        </Heading>
+        <Stack direction={"row"} align={"center"}>
+          <Text color={"gray.700"} fontWeight={800} fontSize={"xl"}>
+            $57
+          </Text>
+          <Text textDecoration={"line-through"} color={"gray.600"}>
+            $199
+          </Text>
+        </Stack>
       </Stack>
-
-      <Container maxW={"6xl"} mt={10}>
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={10}>
-          {features.map((feature) => (
-            <HStack key={feature.id} align={"top"}>
-              <Box color={"green.400"} px={2}>
-                <Icon as={CheckIcon} />
-              </Box>
-              <VStack align={"start"}>
-                <Text fontWeight={600}>{feature.title}</Text>
-                <Text color={"gray.600"}>{feature.text}</Text>
-              </VStack>
-            </HStack>
-          ))}
-        </SimpleGrid>
-      </Container>
     </Box>
   );
-}
+};
+
+export default ProductCard;
