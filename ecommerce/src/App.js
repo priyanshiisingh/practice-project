@@ -9,7 +9,7 @@ import AdminPage from "./components/AdminPage";
 import Navbar from "./layouts/Navbar";
 import PrivateRoute from "./routing/PrivateRoute";
 import { Route, Routes } from "react-router-dom";
-// import Footer from "./layouts/Footer";
+import Footer from "./layouts/Footer";
 
 const App = () => {
   return (
@@ -22,7 +22,7 @@ const App = () => {
         <Route path="/products" element={<Product />} />
         <Route path="/admin" element={<AdminPage />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };
