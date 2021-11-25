@@ -10,9 +10,7 @@ import {
   Button,
   Heading,
   Text,
-  useColorModeValue,
 } from "@chakra-ui/react";
-
 import { useState, useEffect } from "react";
 import { loginUser } from "../actions/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,21 +20,16 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.auth);
 
-  useEffect(
-    () => {
-      if (token) console.log("redirect user");
-      else console.log("do not rediract user");
-    },
-    { token }
-  );
+  const { token } = useSelector((state) => state.auth);
 
   const handleLogin = () => {
     dispatch(loginUser(email, password));
   };
 
-  return (
+  return token ? (
+    <Navigate to="/" />
+  ) : (
     <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"gray.50"}>
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
@@ -45,11 +38,7 @@ export default function Login() {
             to enjoy all of our cool <Link color={"blue.400"}>features</Link> ✌️
           </Text>
         </Stack>
-        <Box
-          rounded={"lg"}
-          bg={useColorModeValue("white", "gray.700")}
-          boxShadow={"lg"}
-          p={8}>
+        <Box rounded={"lg"} bg={"white"} boxShadow={"lg"} p={8}>
           <Stack spacing={4}>
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
