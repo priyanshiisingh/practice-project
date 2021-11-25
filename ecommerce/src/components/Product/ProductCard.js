@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 
 const ProductCard = ({ data }) => {
-  const { imageUrl } = data;
+  const { imageUrl, actualPrice, listingPrice, productName, color } = data;
   console.log(data);
   return (
     <Box

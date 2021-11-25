@@ -19,11 +19,27 @@ import {
   IoSearchSharp,
   IoShieldCheckmarkOutline,
 } from "react-icons/io5";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import Values from "../Values";
 import Details from "./Details";
+import { useParams } from "react-router";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Feature = ({ text, icon, iconBg }) => {
+  const { selectedProduct, setSelectedProduct } = useState(null);
+  const { products } = useSelector((state) => state.products);
+  const { productsId } = useParams();
+
+  const fetchProduct = (productId) => {
+    const product = products.find((product) => product.id == productId);
+    setSelectedProduct(product);
+  };
+
+  useEffect(() => {
+    fetchProduct(productsId);
+  }, []);
+
   return (
     <Stack direction={"row"} align={"center"}>
       <Flex
@@ -48,9 +64,7 @@ export default function Product() {
           <Image
             rounded={"md"}
             alt={"feature image"}
-            src={
-              "https://cdn.shopify.com/s/files/1/0984/6842/products/Red-Fusion-38-40_1024x1024.jpg?v=1611006835"
-            }
+            src={selectedProduct && selectedProduct.imageURL}
             objectFit={"cover"}
           />
         </Flex>
@@ -64,13 +78,11 @@ export default function Product() {
             p={2}
             alignSelf={"flex-start"}
             rounded={"md"}>
-            Watch Band
+            {selectedProduct && selectedProduct.category}
           </Text>
-          <Heading>Nylon Sport Loop</Heading>
+          <Heading>{selectedProduct && selectedProduct.name}</Heading>
           <Text color={"gray.500"} fontSize={"lg"}>
-            Comfort. Day in, day out. Stretchable recycled yarn interwoven with
-            silicone threads designed for ultra-comfort with no buckles or
-            clasps.
+            {selectedProduct && selectedProduct.description}
           </Text>
           <Stack
             spacing={4}
