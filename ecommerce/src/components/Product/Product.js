@@ -11,6 +11,7 @@ import {
   useColorModeValue,
   Button,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import {
   IoAnalyticsSharp,
   IoColorFilterOutline,
@@ -19,27 +20,11 @@ import {
   IoSearchSharp,
   IoShieldCheckmarkOutline,
 } from "react-icons/io5";
-import { ReactElement, useEffect } from "react";
-import Values from "../Values";
-import Details from "./Details";
-import { useParams } from "react-router";
-import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router";
+import Values from "../Values";
 
 const Feature = ({ text, icon, iconBg }) => {
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const { products } = useSelector((state) => state.products);
-  const { productsId } = useParams();
-
-  const fetchProduct = (productId) => {
-    const product = products.find((product) => product.id == productId);
-    setSelectedProduct(product);
-  };
-
-  useEffect(() => {
-    fetchProduct(productsId);
-  }, []);
-
   return (
     <Stack direction={"row"} align={"center"}>
       <Flex
@@ -57,6 +42,19 @@ const Feature = ({ text, icon, iconBg }) => {
 };
 
 export default function Product() {
+  const [selectedProduct, setSelectedproduct] = useState(null);
+  const { products } = useSelector((state) => state.products);
+  const { productId } = useParams();
+
+  const fetchProduct = (productId) => {
+    const product = products.find((product) => product.id == productId);
+    setSelectedproduct(product);
+  };
+  useEffect(() => {
+    fetchProduct(productId);
+  }, []);
+
+  console.log(selectedProduct);
   return (
     <Container maxW={"7xl"} py={12}>
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
@@ -64,7 +62,7 @@ export default function Product() {
           <Image
             rounded={"md"}
             alt={"feature image"}
-            src={selectedProduct && selectedProduct.imageURL}
+            src={selectedProduct && selectedProduct.imageUrl}
             objectFit={"cover"}
           />
         </Flex>
@@ -96,7 +94,9 @@ export default function Product() {
                 <Icon as={IoScanOutline} color={"yellow.500"} w={5} h={5} />
               }
               iconBg={useColorModeValue("yellow.100", "yellow.900")}
-              text={"For : Apple watch (38mm,40mm,41mm)"}
+              text={`For : ${
+                selectedProduct && selectedProduct.compatibleWith
+              }`}
             />
 
             <Feature
@@ -109,7 +109,7 @@ export default function Product() {
                 />
               }
               iconBg={useColorModeValue("purple.100", "purple.900")}
-              text={"Color : Red"}
+              text={`Color : ${selectedProduct && selectedProduct.color}`}
             />
             <Feature
               icon={
@@ -142,7 +142,7 @@ export default function Product() {
               borderRadius={"10px"}
               flexGrow={"2"}
               background={"gray.100"}>
-              20$
+              {selectedProduct && selectedProduct.listingPrice}
             </Heading>
           </Flex>
         </Stack>
