@@ -27,7 +27,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 
 const Feature = ({ text, icon, iconBg }) => {
-  const { selectedProduct, setSelectedProduct } = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const { products } = useSelector((state) => state.products);
   const { productsId } = useParams();
 
