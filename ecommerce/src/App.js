@@ -10,6 +10,7 @@ import Navbar from "./layouts/Navbar";
 import PrivateRoute from "./routing/PrivateRoute";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./layouts/Footer";
+import Admin from "./components/admin/Admin";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/shop" element={<Products />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
       <Footer />
     </div>

@@ -1,38 +1,76 @@
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  Button,
+  ButtonGroup,
+  Stack,
+} from "@chakra-ui/react";
+import { useSelector } from "react-redux";
+import { deleteProduct } from "../../actions/product";
+import { useDispatch } from "react-redux";
+
 const ProductsTable = () => {
+  const { products } = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+
+  const handleDelete = (productId) => {
+    dispatch(deleteProduct(productId));
+  };
+
   return (
     <Table variant="simple">
-      <TableCaption>Imperial to metric conversion factors</TableCaption>
+      <TableCaption>All Products</TableCaption>
       <Thead>
         <Tr>
-          <Th>To convert</Th>
-          <Th>into</Th>
-          <Th isNumeric>multiply by</Th>
+          <Th>ID</Th>
+          <Th>Name</Th>
+          <Th>Category</Th>
+          <Th>Actual Price</Th>
+          <Th>Listing Price</Th>
+          <Th>Color</Th>
+          <Th isNumeric>Stock</Th>
         </Tr>
       </Thead>
       <Tbody>
-        <Tr>
-          <Td>inches</Td>
-          <Td>millimetres (mm)</Td>
-          <Td isNumeric>25.4</Td>
-        </Tr>
-        <Tr>
-          <Td>feet</Td>
-          <Td>centimetres (cm)</Td>
-          <Td isNumeric>30.48</Td>
-        </Tr>
-        <Tr>
-          <Td>yards</Td>
-          <Td>metres (m)</Td>
-          <Td isNumeric>0.91444</Td>
-        </Tr>
+        {products.map((product) => (
+          <>
+            <Tr>
+              <Td>{product && product.id}</Td>
+              <Td>{product && product.productName}</Td>
+              <Td>{product && product.category}</Td>
+              <Td>{product && product.actualPrice}</Td>
+              <Td>{product && product.listingPrice}</Td>
+              <Td>{product && product.color}</Td>
+              <Td
+                color={product && product.stock < 10 ? "red" : "green.400"}
+                isNumeric>
+                {product && product.stock}
+              </Td>
+              <Td>
+                <Stack direction="row" spacing={4} align="center">
+                  <Button
+                    onClick={() => {
+                      handleDelete(product.id);
+                    }}
+                    colorScheme="red"
+                    variant="solid">
+                    Delete
+                  </Button>
+                  <Button colorScheme="purple" variant="solid">
+                    Edit
+                  </Button>
+                </Stack>
+              </Td>
+            </Tr>
+          </>
+        ))}
       </Tbody>
-      <Tfoot>
-        <Tr>
-          <Th>To convert</Th>
-          <Th>into</Th>
-          <Th isNumeric>multiply by</Th>
-        </Tr>
-      </Tfoot>
     </Table>
   );
 };

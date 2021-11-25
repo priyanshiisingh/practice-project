@@ -190,4 +190,8 @@ const NAV_ITEMS = [
     label: "Shop for Watch",
     to: "/shop?q=watch",
   },
+  {
+    label: "Admin",
+    to: "/admin",
+  },
 ];
