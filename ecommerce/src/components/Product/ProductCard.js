@@ -58,14 +58,14 @@ const ProductCard = ({ data }) => {
           Brand
         </Text>
         <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
-          Nice Chair, pink
+          {productName}, {color}
         </Heading>
         <Stack direction={"row"} align={"center"}>
           <Text color={"gray.700"} fontWeight={800} fontSize={"xl"}>
-            $57
+            {listingPrice}
           </Text>
           <Text textDecoration={"line-through"} color={"gray.600"}>
-            $199
+            {actualPrice}
           </Text>
         </Stack>
       </Stack>
