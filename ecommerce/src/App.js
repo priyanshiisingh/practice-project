@@ -1,6 +1,6 @@
 import Home from "./components/Home";
-import Login from "./components/Login";
-import SignUp from "./components/SignUp";
+import Login from "./components/auth/Login";
+import SignUp from "./components/auth/SignUp";
 import Products from "./components/Products";
 import Product from "./components/Product/Product";
 import Order from "./components/Order";
@@ -19,7 +19,8 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/shop" element={<Product />} />
+        <Route path="/shop" element={<Products />} />
+        <Route path="/product/:id" element={<Product />} />
         <Route path="/admin" element={<AdminPage />} />
       </Routes>
       <Footer />
