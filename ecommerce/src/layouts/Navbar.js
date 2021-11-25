@@ -8,11 +8,7 @@ import {
   Collapse,
   Icon,
   Link,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
   useColorModeValue,
-  useBreakpointValue,
   Image,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -29,7 +25,6 @@ import { useSelector } from "react-redux";
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
   const { token } = useSelector((state) => state.auth);
-
   return (
     <Box>
       <Flex
@@ -67,6 +62,7 @@ export default function Navbar() {
             <DesktopNav />
           </Flex>
         </Flex>
+
         {token ? null : (
           <Stack
             flex={{ base: 1, md: 0 }}
@@ -104,7 +100,6 @@ export default function Navbar() {
     </Box>
   );
 }
-
 const DesktopNav = () => {
   return (
     <Stack direction={"row"} spacing={4}>
@@ -123,7 +118,6 @@ const DesktopNav = () => {
     </Stack>
   );
 };
-
 const MobileNav = () => {
   return (
     <Stack
@@ -136,10 +130,8 @@ const MobileNav = () => {
     </Stack>
   );
 };
-
 const MobileNavItem = ({ label, children, href }) => {
   const { isOpen, onToggle } = useDisclosure();
-
   return (
     <Stack spacing={4} onClick={children && onToggle}>
       <Flex
@@ -166,7 +158,6 @@ const MobileNavItem = ({ label, children, href }) => {
           />
         )}
       </Flex>
-
       <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
         <Stack
           mt={2}
@@ -186,7 +177,6 @@ const MobileNavItem = ({ label, children, href }) => {
     </Stack>
   );
 };
-
 const NAV_ITEMS = [
   {
     label: "Shop",
