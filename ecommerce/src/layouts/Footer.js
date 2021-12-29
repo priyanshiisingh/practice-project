@@ -113,10 +113,10 @@ export default function Footer() {
                 }}
               />
               <IconButton
-                bg={useColorModeValue("green.400", "green.800")}
-                color={useColorModeValue("white", "gray.800")}
+                bg={"blue.400"}
+                color={"white"}
                 _hover={{
-                  bg: "green.600",
+                  bg: "blue.600",
                 }}
                 aria-label="Subscribe"
                 icon={<BiMailSend />}
