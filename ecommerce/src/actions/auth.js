@@ -36,7 +36,7 @@ export const loginUser = (email, password) => async (dispatch) => {
 export const signupUser =
   (email, firstName, lastName, password) => async (dispatch) => {
     try {
-      const base_Url = "http://localhost:8080";
+      const base_Url = "http://localhost:3000";
 
       const res = await axios.post(`${base_Url}/api/v1/auth/signup`, {
         email,
