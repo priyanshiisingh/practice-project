@@ -28,23 +28,21 @@ export default function Home() {
                 bg: "blue.400",
                 zIndex: -1,
               }}>
-              Shop For
+              Accessories
             </Text>
             <br />{" "}
             <Text color={"red.400"} as={"span"}>
-              Accessories you'll ❤️
+              That you'll love ❤️
             </Text>{" "}
           </Heading>
           <Text fontSize={{ base: "md", lg: "lg" }} color={"gray.500"}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
-            omnis at hic reprehenderit quis consequatur porro perferendis,
-            fugiat officiis dolorum! Odit hic asperiores maxime doloribus
-            eligendi eius in, autem molestiae?
+            The project board is an exclusive resource for contract work. It's
+            perfect for freelancers, agencies, and moonlighters.
           </Text>
           <Stack direction={{ base: "column", md: "row" }} spacing={4}>
             <Button
               as={Link}
-              to="/shop"
+              to={"/shop"}
               rounded={"full"}
               bg={"red.400"}
               color={"white"}

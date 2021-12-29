@@ -8,6 +8,8 @@ import {
   Heading,
   Button,
 } from "@chakra-ui/react";
+import axios from "axios";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../actions/product";
@@ -21,22 +23,34 @@ const AddProduct = () => {
   const [listingPrice, setlistingPrice] = useState("");
   const [actualPrice, setactualPrice] = useState("");
   const [stock, setstock] = useState(0);
+  const [categories, setCategories] = useState([]);
 
   const dispatch = useDispatch();
 
+  const getCategories = async () => {
+    const res = await axios.get("http://localhost:8080/api/v1/category/all");
+    const { categories, message } = res.data;
+    setCategories(categories);
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
   const handleAddProduct = () => {
-    dispatch(
-      addProduct({
-        name,
-        imageUrl,
-        description,
-        category,
-        color,
-        listingPrice,
-        actualPrice,
-        stock,
-      })
-    );
+    // dispatch(addProduct({
+    //     name, imageUrl, description, category, color, listingPrice, actualPrice, stock
+    // }))
+    console.log({
+      name,
+      imageUrl,
+      description,
+      category,
+      color,
+      listingPrice,
+      actualPrice,
+      stock,
+    });
   };
 
   return (
@@ -67,11 +81,16 @@ const AddProduct = () => {
         <FormLabel>Category</FormLabel>
         <Select
           onChange={(e) => {
-            setcategory(e.target.value);
+            const { _id } = categories.find(
+              (category) => category.name == e.target.value
+            );
+            setcategory(_id);
           }}
           placeholder="Select product's category">
-          <option>Watch Band</option>
-          <option>iPhone Cases</option>
+          {categories &&
+            categories.map((category) => {
+              return <option id={category._id}>{category.name}</option>;
+            })}
         </Select>
         <FormLabel>Product color</FormLabel>
         <Input
