@@ -1,21 +1,32 @@
 import jwt from "jsonwebtoken";
-export const loginUser = (email, password) => {
-  // VERIFY EMAIL AND PASSWORD
-  // create and sign a JWT
-  const users = JSON.parse(localStorage.getItem("users")) ?? [];
-  const user = users.find((u) => u.email === email);
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
-  if (user.password === password) {
-    const token = jwt.sign({ email: user.email }, "SECRET");
-    return {
-      type: "LOGIN_SUCCESS",
-      payload: { token },
-    };
-  } else {
-    window.alert("INCORRECT CREDS");
-    return {
-      type: "LOGIN_FAILED",
-      payload: { token: null },
-    };
+export const loginUser = (email, password) => async (dispatch) => {
+  try {
+    const base_Url = "http://localhost:8080";
+
+    const res = await axios.post(`${base_Url}/api/v1/auth/login`, {
+      email,
+      password,
+    });
+    const { token, message } = res.data;
+
+    if (token) {
+      toast.success("Login Success");
+      dispatch({
+        type: "LOGIN_SUCCESS",
+        payload: { token },
+      });
+    } else {
+      toast.error(message);
+      dispatch({
+        type: "LOGIN_FAILED",
+        payload: { token: null },
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+    toast.error(error.message);
   }
 };

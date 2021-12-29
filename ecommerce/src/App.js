@@ -11,11 +11,14 @@ import PrivateRoute from "./routing/PrivateRoute";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./layouts/Footer";
 import Admin from "./components/admin/Admin";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
     <div className="App">
       <Navbar />
+      {/* <Home /> */}
+      <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
