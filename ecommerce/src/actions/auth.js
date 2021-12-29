@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 
 export const loginUser = (email, password) => async (dispatch) => {
   try {
-    const base_Url = "http://localhost:8080";
+    const base_Url = "http://localhost:3003";
 
     const res = await axios.post(`${base_Url}/api/v1/auth/login`, {
       email,
