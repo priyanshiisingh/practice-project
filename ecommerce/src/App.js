@@ -12,8 +12,25 @@ import { Route, Routes } from "react-router-dom";
 import Footer from "./layouts/Footer";
 import Admin from "./components/admin/Admin";
 import { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
-const App = () => {
+function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      // dispatch an action that modifies the store
+      console.log(token);
+      dispatch({
+        type: "SET_AUTH_TOKEN",
+        payload: { token },
+      });
+    }
+  }, []);
+
   return (
     <div className="App">
       <Navbar />
@@ -21,15 +38,15 @@ const App = () => {
       <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
         <Route path="/shop" element={<Products />} />
         <Route path="/shop/:productId" element={<Product />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
       <Footer />
     </div>
   );
-};
+}
 
 export default App;
